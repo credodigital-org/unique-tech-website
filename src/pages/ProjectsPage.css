@@ -1,0 +1,150 @@
+.projects-page-hero {
+  background-image: url("../assets/images/projects-hero.webp");
+}
+
+.projects-overview {
+  padding-block: clamp(40px, 5vw, 70px) var(--section-pad);
+}
+
+.projects-intro {
+  max-width: 920px;
+  margin: 0 auto clamp(26px, 3.4vw, 40px);
+  text-align: center;
+}
+
+.projects-intro h2 {
+  margin-bottom: 22px;
+}
+
+.projects-intro p {
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: clamp(28px, 3.6vw, 40px);
+}
+
+.filter-button {
+  min-height: 46px;
+  padding: 0 24px;
+  border: 1px solid var(--navy);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--navy);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.filter-button:hover,
+.filter-button.active {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 19px;
+  align-items: stretch;
+}
+
+.portfolio-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  transition: background-color 0.25s, color 0.25s, box-shadow 0.25s;
+}
+
+.portfolio-photo {
+  aspect-ratio: 386 / 270;
+  overflow: hidden;
+}
+
+.portfolio-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portfolio-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  padding: 26px 17px 30px;
+}
+
+.portfolio-copy h3 {
+  transition: color 0.25s;
+}
+
+.portfolio-copy p {
+  line-height: 1.55;
+}
+
+.portfolio-copy strong {
+  margin-top: auto;
+  color: var(--navy);
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.25s;
+}
+
+.portfolio-card:hover,
+.portfolio-card:focus-within,
+.portfolio-card:active,
+.portfolio-card.is-active {
+  background: var(--navy);
+  color: var(--white);
+  box-shadow: var(--shadow-hover);
+}
+
+.portfolio-card:hover h3,
+.portfolio-card:hover strong,
+.portfolio-card:focus-within h3,
+.portfolio-card:focus-within strong,
+.portfolio-card:active h3,
+.portfolio-card:active strong,
+.portfolio-card.is-active h3,
+.portfolio-card.is-active strong {
+  color: var(--white);
+}
+
+.no-projects {
+  grid-column: 1 / -1;
+  padding: 40px 0;
+  text-align: center;
+  color: var(--ink);
+}
+
+@media (max-width: 960px) {
+  .project-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .project-gallery {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-filters {
+    gap: 10px;
+  }
+
+  .filter-button {
+    min-height: 42px;
+    padding: 0 16px;
+  }
+}

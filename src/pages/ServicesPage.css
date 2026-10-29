@@ -1,0 +1,136 @@
+.services-page-hero {
+  background-image: url("../assets/images/services-hero.webp");
+}
+
+.services-overview {
+  padding-block: clamp(40px, 5vw, 70px) var(--section-pad);
+}
+
+.services-intro {
+  max-width: 1000px;
+  margin: 0 auto clamp(32px, 4vw, 52px);
+  text-align: center;
+}
+
+.services-intro h2 {
+  margin-bottom: 26px;
+}
+
+.services-intro p {
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.service-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 19px;
+  align-items: stretch;
+}
+
+.service-catalog-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  transition: background-color 0.25s, color 0.25s, box-shadow 0.25s;
+}
+
+.service-catalog-photo {
+  position: relative;
+  aspect-ratio: 386 / 292;
+}
+
+.service-catalog-frame {
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.service-catalog-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Icon tile straddles the photo / card-body edge */
+.catalog-service-icon {
+  position: absolute;
+  left: 17px;
+  bottom: -20px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  border-radius: 5px;
+  background: var(--navy);
+  color: var(--white);
+  transition: background-color 0.25s, color 0.25s;
+}
+
+.service-catalog-copy {
+  flex: 1;
+  padding: 36px 17px 28px;
+}
+
+.service-catalog-copy h3 {
+  margin-bottom: 16px;
+  transition: color 0.25s;
+}
+
+.service-catalog-copy > p {
+  margin-bottom: 14px;
+  line-height: 1.55;
+}
+
+.service-catalog-copy ul {
+  margin: 0;
+  padding-left: 22px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.service-catalog-copy li {
+  margin-bottom: 2px;
+}
+
+/* Hover / keyboard focus / touch tap: card turns blue, icon tile turns white */
+.service-catalog-card:hover,
+.service-catalog-card:focus-within,
+.service-catalog-card:active,
+.service-catalog-card.is-active {
+  background: var(--navy);
+  color: var(--white);
+  box-shadow: var(--shadow-hover);
+}
+
+.service-catalog-card:hover h3,
+.service-catalog-card:focus-within h3,
+.service-catalog-card:active h3,
+.service-catalog-card.is-active h3 {
+  color: var(--white);
+}
+
+.service-catalog-card:hover .catalog-service-icon,
+.service-catalog-card:focus-within .catalog-service-icon,
+.service-catalog-card:active .catalog-service-icon,
+.service-catalog-card.is-active .catalog-service-icon {
+  background: var(--white);
+  color: var(--navy);
+}
+
+@media (max-width: 960px) {
+  .service-catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .service-catalog-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

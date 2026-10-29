@@ -1,0 +1,570 @@
+/* ---- Hero ---- */
+
+.homehero {
+  display: flex;
+  align-items: center;
+  /* Fills exactly the first screen below the header (design height: 755px) */
+  min-height: clamp(420px, calc(100vh - var(--chrome)), 900px);
+  min-height: clamp(420px, calc(100svh - var(--chrome)), 900px);
+  background: #12396c url("../assets/images/hero-reference.webp") center / cover no-repeat;
+}
+
+.homeherocopy {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(20px, 6vh, 60px);
+  color: var(--white);
+}
+
+.homeheroart {
+  display: none;
+}
+
+.homeherocopy h1 {
+  margin-bottom: clamp(14px, min(3.6vw, 4.5vh), 52px);
+  color: var(--white);
+  font-size: clamp(30px, min(3.4vw, 6.4vh), 60px);
+  font-weight: 700;
+  line-height: 1.12;
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+}
+
+.homeherocopy p {
+  max-width: 34em;
+  margin-bottom: clamp(16px, min(3.6vw, 4.5vh), 52px);
+  font-size: clamp(14px, min(1.3vw, 2.5vh), 22px);
+  line-height: 1.45;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.homeactions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+/* .homebutton {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--navy);
+}
+
+.homebutton:hover,
+.homebutton:focus-visible,
+.homebutton:active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--navy);
+}
+
+.outlinebutton {
+  background: transparent;
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.outlinebutton:hover,
+.outlinebutton:focus-visible,
+.outlinebutton:active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--navy);
+} */
+
+
+/* Hero buttons — white by default */
+.homebutton {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--navy);
+  transition: background-color 0.25s ease,
+              color 0.25s ease,
+              border-color 0.25s ease;
+}
+
+/* Outline button also white by default */
+.outlinebutton {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--navy);
+  transition: background-color 0.25s ease,
+              color 0.25s ease,
+              border-color 0.25s ease;
+}
+
+/* Both buttons become transparent on hover */
+.homeactions .homebutton:hover,
+.homeactions .homebutton:focus-visible,
+.homeactions .outlinebutton:hover,
+.homeactions .outlinebutton:focus-visible {
+  background: transparent;
+  border-color: var(--white);
+  color: var(--white);
+}
+
+
+/* ---- About strip ---- */
+
+.homeabout {
+  padding-block: var(--section-pad);
+  background: var(--tint);
+}
+
+.homeabout .dotwash {
+  background-image: url("../assets/images/Rectangle 78.webp");
+}
+
+.homeaboutgrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 515px) minmax(0, 1fr);
+  gap: clamp(28px, 4.4vw, 52px);
+  align-items: center;
+}
+
+.homeaboutgrid > img {
+  width: 100%;
+  aspect-ratio: 515 / 283;
+  border-radius: var(--radius);
+  object-fit: cover;
+  box-shadow: var(--shadow);
+}
+
+.homeaboutgrid h2 {
+  margin-bottom: 26px;
+}
+
+.homeaboutgrid p {
+  max-width: 590px;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+/* ---- Services ---- */
+
+.homeservices,
+.homeprojects {
+  padding-block: var(--section-pad);
+}
+
+.homecards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 19px;
+}
+
+.homecard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  transition: background-color 0.25s, color 0.25s, box-shadow 0.25s;
+}
+
+.cardphoto {
+  aspect-ratio: 285 / 225;
+  overflow: hidden;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.cardphoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The icon tile sits half on the photo and half on the card body. */
+.serviceicon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  margin: -20px 0 0 17px;
+  border-radius: 5px;
+  background: var(--navy);
+  color: var(--white);
+  transition: background-color 0.25s, color 0.25s;
+}
+
+.cardcopy {
+  flex: 1;
+  padding: 14px 17px 26px;
+}
+
+.cardcopy h3 {
+  margin-bottom: 14px;
+  transition: color 0.25s;
+}
+
+.cardcopy ul {
+  margin: 0;
+  padding-left: 22px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.cardcopy li {
+  margin-bottom: 2px;
+}
+
+.homecard:hover,
+.homecard:focus-visible,
+.homecard:active,
+.homecard.is-active {
+  background: var(--navy);
+  color: var(--white);
+  box-shadow: var(--shadow-hover);
+}
+
+.homecard:hover h3,
+.homecard:focus-visible h3,
+.homecard:active h3,
+.homecard.is-active h3 {
+  color: var(--white);
+}
+
+.homecard:hover .serviceicon,
+.homecard:focus-visible .serviceicon,
+.homecard:active .serviceicon,
+.homecard.is-active .serviceicon {
+  background: var(--white);
+  color: var(--navy);
+}
+
+/* ---- Benefits ---- */
+
+.homebenefits {
+  padding-block: var(--section-pad);
+  background: var(--tint-strong);
+}
+
+.homebenefits .dotwash {
+  background-image: url("../assets/images/Rectangle 53.webp");
+}
+
+.benefitgrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 600px);
+  gap: clamp(28px, 4vw, 52px);
+  align-items: center;
+}
+
+.benefitintro h2 {
+  margin-bottom: 28px;
+  font-weight: 500;
+}
+
+.benefitintro p {
+  max-width: 560px;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.45;
+  color: var(--navy);
+}
+
+.miniphotos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  max-width: 560px;
+  margin-top: 28px;
+}
+
+.miniphotos img {
+  width: 100%;
+  aspect-ratio: 245 / 155;
+  border-radius: 4px;
+  object-fit: cover;
+  box-shadow: var(--shadow);
+}
+
+.benefitcards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.benefit {
+  min-height: 200px;
+  padding: 24px 22px;
+  border: 1px solid var(--navy);
+  border-radius: 4px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+  transition: background-color 0.25s, color 0.25s;
+}
+
+.benefit h3 {
+  margin-bottom: 14px;
+  transition: color 0.25s;
+}
+
+.benefit p {
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.darkbenefit {
+  background: var(--navy-soft);
+  color: var(--white);
+}
+
+.darkbenefit h3,
+.darkbenefit p {
+  color: var(--white);
+}
+
+.benefit:hover,
+.benefit:focus-within,
+.benefit:active,
+.benefit.is-active {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.benefit:hover h3,
+.benefit:hover p,
+.benefit:active h3,
+.benefit:active p,
+.benefit.is-active h3,
+.benefit.is-active p {
+  color: var(--white);
+}
+
+
+
+/* Benefits cards — hover and active states */
+
+.benefit {
+  transition: background-color 0.25s ease,
+              color 0.25s ease,
+              border-color 0.25s ease;
+}
+
+.benefit h3,
+.benefit p {
+  transition: color 0.25s ease;
+}
+
+/* Navy background and white text */
+.benefit:hover,
+.benefit:focus-within,
+.benefit:active,
+.benefit.is-active {
+  background-color: var(--navy);
+  border-color: var(--navy);
+  color: var(--white);
+}
+
+.benefit:hover h3,
+.benefit:hover p,
+.benefit:focus-within h3,
+.benefit:focus-within p,
+.benefit:active h3,
+.benefit:active p,
+.benefit.is-active h3,
+.benefit.is-active p {
+  color: var(--white);
+}
+
+
+
+/* ---- Featured projects ---- */
+
+.projectcards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 19px;
+}
+
+.projectcard {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow);
+  transition: background-color 0.25s, box-shadow 0.25s;
+}
+
+.projectcard img {
+  width: 100%;
+  aspect-ratio: 285 / 250;
+  object-fit: cover;
+}
+
+.projectcard h3 {
+  flex: 1;
+  padding: 18px 17px 22px;
+  transition: color 0.25s;
+}
+
+.projectcard:hover,
+.projectcard:focus-visible,
+.projectcard:active,
+.projectcard.is-active {
+  background: var(--navy);
+  box-shadow: var(--shadow-hover);
+}
+
+.projectcard:hover h3,
+.projectcard:focus-visible h3,
+.projectcard:active h3,
+.projectcard.is-active h3 {
+  color: var(--white);
+}
+
+/* ---- Closing call to action ---- */
+
+.homecall {
+  padding-block: clamp(40px, 5vw, 72px);
+  background: var(--navy) url("../assets/images/Rectangle 21.webp") center / cover no-repeat;
+  color: var(--white);
+}
+
+.homecallinner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.homecall h2 {
+  margin-bottom: 20px;
+  color: var(--white);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.homecall p {
+  max-width: 620px;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.45;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 1100px) {
+  .homecards,
+  .projectcards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .benefitintro {
+    text-align: center;
+  }
+
+  .benefitintro p,
+  .miniphotos {
+    margin-inline: auto;
+  }
+
+  .benefitgrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .benefitintro p,
+  .miniphotos {
+    max-width: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .homeaboutgrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .homeaboutgrid > img {
+    max-width: 620px;
+    margin-inline: auto;
+  }
+
+  .homeaboutgrid > div {
+    text-align: center;
+  }
+
+  .homeaboutgrid p {
+    margin-inline: auto;
+  }
+
+  .homecallinner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .homecall p {
+    margin-inline: auto;
+  }
+
+  .homeactions {
+    justify-content: center;
+  }
+}
+
+/* Tablets: keep the worker, logo and skyline on screen */
+@media (max-width: 960px) {
+  .homehero {
+    background-position: 82% center;
+  }
+}
+
+/* Phones: text on top, photo crop (worker + logo + skyline) fills the bottom */
+@media (max-width: 700px) {
+  .homehero {
+    flex-direction: column;
+    align-items: stretch;
+    background-image: none;
+  }
+
+  .homeherocopy {
+    width: 100%;
+    margin-inline: 0;
+    padding: 30px var(--gutter) 6px;
+  }
+
+  .homeherocopy h1 {
+    max-width: none;
+    margin-bottom: 16px;
+    font-size: clamp(28px, 8vw, 36px);
+  }
+
+  .homeherocopy h1 br {
+    display: none;
+  }
+
+  .homeherocopy p {
+    margin-bottom: 20px;
+  }
+
+  .homeheroart {
+    display: block;
+    margin-top: auto;
+    aspect-ratio: 920 / 750;
+    background: url("../assets/images/hero-mobile.webp") center bottom / cover no-repeat;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 34%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 34%);
+  }
+}
+
+@media (max-width: 560px) {
+  .homecards,
+  .projectcards,
+  .benefitcards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .homeactions .button {
+    flex: 1 1 100%;
+  }
+
+  .benefit {
+    min-height: 0;
+  }
+}

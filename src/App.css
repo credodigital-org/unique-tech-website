@@ -1,0 +1,214 @@
+/* ==========================================================================
+   Motion
+   Everything that moves lives here. The rules below only apply for visitors who
+   have not asked their device for reduced motion.
+   ========================================================================== */
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes fade-down {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(-34px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes slow-zoom {
+  from { transform: scale(1.1); }
+  to   { transform: scale(1); }
+}
+
+@keyframes grow-dash {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+@keyframes menu-drop {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* ---- Scroll reveal (classes added by components/ScrollReveal.jsx) ---- */
+
+  .reveal-section {
+    opacity: 0;
+  }
+
+  .reveal-section.is-visible {
+    opacity: 1;
+    animation: reveal-up 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms) backwards;
+  }
+
+  /* ---- Page load ---- */
+
+  .header {
+    animation: fade-down 0.6s ease backwards;
+  }
+
+  .homeherocopy h1,
+  .homeherocopy p,
+  .homeactions {
+    animation: reveal-up 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+
+  .homeherocopy h1 { animation-delay: 0.15s; }
+  .homeherocopy p  { animation-delay: 0.35s; }
+  .homeactions     { animation-delay: 0.55s; }
+
+  .page-hero h1 {
+    animation: slide-in 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s backwards;
+  }
+
+  /* Slow "settle" zoom on hero photos */
+  .homehero,
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .homehero::before,
+  .page-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: inherit;
+    animation: slow-zoom 2.4s ease-out both;
+  }
+
+  /* Eyebrow dashes draw themselves in when their section appears */
+  .is-visible .eyebrow::before,
+  .is-visible .eyebrow::after {
+    animation: grow-dash 0.7s ease 0.2s backwards;
+  }
+
+  .eyebrow::before { transform-origin: right; }
+  .eyebrow::after  { transform-origin: left; }
+
+  .value-diagram img {
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .nav.open {
+    animation: menu-drop 0.25s ease;
+  }
+
+  /* ---- Buttons: lift + light sweep ---- */
+
+  .button,
+  .navcta {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+
+  .button::after,
+  .navcta::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.6s ease;
+  }
+
+  .button:hover,
+  .button:focus-visible,
+  .navcta:hover,
+  .navcta:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button:hover::after,
+  .button:focus-visible::after,
+  .navcta:hover::after,
+  .navcta:focus-visible::after {
+    transform: translateX(120%);
+  }
+
+  /* ---- Cards: lift, photo zoom, icon pop ---- */
+
+  :is(
+    .homecard,
+    .projectcard,
+    .benefit,
+    .service-catalog-card,
+    .portfolio-card,
+    .contact-detail-card,
+    .advantage-card
+  ) {
+    transition-property: background-color, color, box-shadow, transform;
+    transition-duration: 0.3s;
+  }
+
+  :is(
+    .homecard,
+    .projectcard,
+    .benefit,
+    .service-catalog-card,
+    .portfolio-card,
+    .contact-detail-card,
+    .advantage-card
+  ):is(:hover, :focus-visible, :focus-within, :active, .is-active) {
+    transform: translateY(-6px);
+  }
+
+  .cardphoto img,
+  .service-catalog-frame img,
+  .portfolio-photo img,
+  .projectcard img {
+    transition: transform 0.6s ease;
+  }
+
+  .homecard:is(:hover, :focus-visible, :active, .is-active) .cardphoto img,
+  .service-catalog-card:is(:hover, :focus-within, :active, .is-active) .service-catalog-frame img,
+  .portfolio-card:is(:hover, :focus-within, :active, .is-active) .portfolio-photo img,
+  .projectcard:is(:hover, :focus-visible, :active, .is-active) img {
+    transform: scale(1.07);
+  }
+
+  .serviceicon,
+  .catalog-service-icon,
+  .contact-icon {
+    transition: background-color 0.25s, color 0.25s, transform 0.3s ease;
+  }
+
+  .homecard:is(:hover, :focus-visible, :active, .is-active) .serviceicon,
+  .service-catalog-card:is(:hover, :focus-within, :active, .is-active) .catalog-service-icon,
+  .contact-detail-card:is(:hover, :focus-within, :active, .is-active) .contact-icon {
+    transform: translateY(-3px) scale(1.1) rotate(-6deg);
+  }
+
+  /* ---- Projects: cards animate in when a filter is chosen ---- */
+
+  .project-gallery.filtered .portfolio-card {
+    animation: reveal-up 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i, 0) * 70ms) backwards;
+  }
+
+  /* ---- Footer links: underline slides in ---- */
+
+  .footergrid > div > a:not(.footbrand) {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.3s ease;
+  }
+
+  .footergrid > div > a:not(.footbrand):hover {
+    background-size: 100% 1px;
+    text-decoration: none;
+  }
+}
