@@ -31,7 +31,7 @@ function HomePage() {
         <section className="homehero">
           <div className="wrap homeherocopy">
             <h1>Your Trusted Partner for <br />Complete Maintenance <br />Solutions</h1>
-            <p>From MEP works and professional cleaning to general maintenance and AMC services, we deliver reliable solutions to keep your residential and commercial properties running smoothly.</p>
+            <p>From MEP works and professional to general maintenance and AMC services, we deliver reliable solutions to keep your residential and commercial properties running smoothly.</p>
             <div className="homeactions">
               <Link className="button homebutton" to="/contact">Get a Free Quote</Link>
               <Link className="button outlinebutton" to="/services">Explore Our Services</Link>

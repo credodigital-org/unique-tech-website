@@ -20,7 +20,7 @@ function Footer() {
             <img src={uniqueTechLogoMark} alt="" />
             <span><b>Unique Tech</b><small>GENERAL MAINTENANCE LLC</small></span>
           </Link>
-          <p>Your trusted partner for MEP works, cleaning services, general maintenance, and AMC solutions.</p>
+          <p>Your trusted partner for MEP works, services, general maintenance, and AMC solutions.</p>
           <SocialLinks />
         </div>
 

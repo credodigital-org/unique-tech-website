@@ -3,7 +3,7 @@ export const company = {
   email: "info@uniquetech.ae",
   phones: [
     { label: "+971 507 639 356", href: "tel:+971507639356" },
-    { label: "+971 563 362 209", href: "tel:+971563362209" },
+    { label: "+971 54 582 8844", href: "tel:+971563362209" },
   ],
   fax: { label: "Fax: +971 2 6289002", href: "tel:+97126289002" },
   address: [
