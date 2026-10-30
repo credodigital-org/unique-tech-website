@@ -10,10 +10,12 @@ import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollReveal from "./components/ScrollReveal";
 import TouchHover from "./components/TouchHover";
+import Preloader from "./components/Preloader";
 
 function App() {
   return (
     <BrowserRouter>
+      <Preloader />
       <ScrollToTop />
 
       <Routes>
