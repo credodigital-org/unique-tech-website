@@ -3,13 +3,28 @@ import { useEffect, useState } from "react";
 import "./Preloader.css";
 import logoLarge from "../assets/images/preloader-logo.png";
 import wordmark from "../assets/images/unique-tech-wordmark.png";
+import heroImage from "../assets/images/hero-reference.webp";
 
 const MIN_LOAD_MS = 2000; // the logo takes at least this long to fill
-const EXIT_MS = 1300; // must cover the strip animation in Preloader.css
+const EXIT_MS = 1500; // must cover the whole strip animation in Preloader.css (last strip ends at ~1360ms)
 const REVEAL_MS = 2600; // how long the "site-reveal" class stays on <html>
 const STRIPS = 5;
 
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Wait (briefly) for the web fonts and the hero photo, so nothing swaps or pops in
+// after the screen has opened.
+const waitForAssets = () => {
+  const fonts = document.fonts?.ready ?? Promise.resolve();
+  const hero = new Promise((resolve) => {
+    const img = new Image();
+    img.src = heroImage;
+    if (img.decode) img.decode().then(resolve, resolve);
+    else img.onload = img.onerror = resolve;
+  });
+  const timeout = new Promise((resolve) => setTimeout(resolve, 3000)); // never wait longer than this
+  return Promise.race([Promise.all([fonts, hero]), timeout]);
+};
 
 /**
  * Loading screen shown when the site opens.
@@ -28,6 +43,7 @@ function Preloader() {
     const start = performance.now();
     let frame;
     let timer;
+    let cancelled = false;
 
     const complete = () => {
       setProgress(100);
@@ -39,18 +55,22 @@ function Preloader() {
       setProgress(94 * (1 - (1 - t) ** 2.2));
       if (t < 1) {
         frame = requestAnimationFrame(tick);
-      } else if (document.readyState === "complete") {
-        complete();
       } else {
-        window.addEventListener("load", complete, { once: true });
+        const whenLoaded =
+          document.readyState === "complete"
+            ? Promise.resolve()
+            : new Promise((resolve) => window.addEventListener("load", resolve, { once: true }));
+        whenLoaded.then(waitForAssets).then(() => {
+          if (!cancelled) complete();
+        });
       }
     };
 
     frame = requestAnimationFrame(tick);
     return () => {
+      cancelled = true;
       cancelAnimationFrame(frame);
       clearTimeout(timer);
-      window.removeEventListener("load", complete);
     };
   }, []);
 
@@ -60,10 +80,15 @@ function Preloader() {
     const root = document.documentElement;
     root.classList.add("site-reveal");
     const removeLoader = setTimeout(() => setGone(true), reducedMotion() ? 0 : EXIT_MS);
-    const removeClass = setTimeout(() => root.classList.remove("site-reveal"), REVEAL_MS);
+    // Swap, don't just remove: removing "site-reveal" alone made the header and hero fall back to
+    // their normal entrance animations, which replayed (a second, unwanted fade-in).
+    const finishReveal = setTimeout(() => {
+      root.classList.add("site-settled");
+      root.classList.remove("site-reveal");
+    }, REVEAL_MS);
     return () => {
       clearTimeout(removeLoader);
-      clearTimeout(removeClass);
+      clearTimeout(finishReveal);
     };
   }, [leaving]);
 

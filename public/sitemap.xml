@@ -1,29 +1,4 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.example.com/</loc></url><url><loc>https://www.example.com/about</loc></url><url><loc>https://www.example.com/services</loc></url><url><loc>https://www.example.com/projects</loc></url><url><loc>https://www.example.com/contact</loc></url>
-</urlset> -->
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://uniquetech.ae/</loc>
-  </url>
-
-  <url>
-    <loc>https://uniquetech.ae/about</loc>
-  </url>
-
-  <url>
-    <loc>https://uniquetech.ae/services</loc>
-  </url>
-
-  <url>
-    <loc>https://uniquetech.ae/projects</loc>
-  </url>
-
-  <url>
-    <loc>https://uniquetech.ae/contact</loc>
-  </url>
-
+  <url><loc>https://www.example.com/</loc></url><url><loc>https://www.example.com/about</loc></url><url><loc>https://www.example.com/services</loc></url><url><loc>https://www.example.com/projects</loc></url><url><loc>https://www.example.com/contact</loc></url>
 </urlset>
