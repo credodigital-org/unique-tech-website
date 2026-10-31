@@ -250,6 +250,12 @@ html.site-reveal .page-main > section:first-child .wrap > :nth-child(2) { --reve
 html.site-reveal .page-main > section:first-child .wrap > :nth-child(3) { --reveal-i: 2; }
 html.site-reveal .page-main > section:first-child .wrap > :nth-child(4) { --reveal-i: 3; }
 
+/* Once the opening entrance has finished, the elements it animated must not play any
+   entrance animation again (this was the second "loading" fade after the loader). */
+html.site-settled :is(.topline, .header, .page-main > section:first-child, .page-main > section:first-child .wrap > *) {
+  animation: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html.site-reveal * { animation: none !important; }
 }
