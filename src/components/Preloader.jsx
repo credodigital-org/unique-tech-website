@@ -1,51 +1,42 @@
 import { useEffect, useState } from "react";
 
 import "./Preloader.css";
-import logoMark from "../assets/images/unique-tech-logo-mark.png";
+import logoLarge from "../assets/images/preloader-logo.png";
+import wordmark from "../assets/images/unique-tech-wordmark.png";
 
-const MIN_LOAD_MS = 1800; // the counter takes at least this long to reach 95%
-const EXIT_MS = 800; // must match the slide-up transition in Preloader.css
+const MIN_LOAD_MS = 2000; // the logo takes at least this long to fill
+const EXIT_MS = 1300; // must cover the strip animation in Preloader.css
+const REVEAL_MS = 2600; // how long the "site-reveal" class stays on <html>
+const STRIPS = 5;
 
-// Loading styles: "classic" (slide up), "ring" (progress ring), "curtain" (opens from the middle), "reveal" (closes to a dot).
-const VARIANTS = ["classic", "ring", "curtain", "reveal"];
-const DEFAULT_VARIANT = "classic";
-
-// Add ?loader=ring (or curtain / reveal / classic) to the URL to preview a style.
-const getVariant = () => {
-  const requested = new URLSearchParams(window.location.search).get("loader");
-  return VARIANTS.includes(requested) ? requested : DEFAULT_VARIANT;
-};
-
-const RING_LENGTH = 2 * Math.PI * 70;
-
-const prefersReducedMotion = () =>
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * Full-screen loading screen shown when the site is opened:
- * logo reveal + 0-100% counter, then it slides up and is removed.
+ * Loading screen shown when the site opens.
+ * The logo "colours in" from the bottom as the page loads. When it is full the
+ * screen opens in vertical strips and the page content animates in
+ * (the `site-reveal` class on <html>, styled in App.css).
  */
 function Preloader() {
-  const [variant] = useState(getVariant);
-  const [percent, setPercent] = useState(0);
+  const [progress, setProgress] = useState(0); // 0-100
   const [leaving, setLeaving] = useState(false);
   const [gone, setGone] = useState(false);
 
-  // Count up to 95%, wait for the page to finish loading, then complete to 100%.
+  // Fill to 94%, wait for the page to finish loading, then complete.
   useEffect(() => {
-    const duration = prefersReducedMotion() ? 300 : MIN_LOAD_MS;
+    const duration = reducedMotion() ? 300 : MIN_LOAD_MS;
     const start = performance.now();
     let frame;
     let timer;
 
     const complete = () => {
-      setPercent(100);
-      timer = setTimeout(() => setLeaving(true), 300);
+      setProgress(100);
+      timer = setTimeout(() => setLeaving(true), 350);
     };
 
     const tick = (now) => {
       const t = Math.min((now - start) / duration, 1);
-      setPercent(Math.round(95 * (1 - (1 - t) ** 2))); // ease-out
+      setProgress(94 * (1 - (1 - t) ** 2.2));
       if (t < 1) {
         frame = requestAnimationFrame(tick);
       } else if (document.readyState === "complete") {
@@ -63,11 +54,17 @@ function Preloader() {
     };
   }, []);
 
-  // Remove it from the DOM after the slide-up finishes.
+  // When the screen starts opening: animate the page in, then remove the loader.
   useEffect(() => {
     if (!leaving) return undefined;
-    const timer = setTimeout(() => setGone(true), prefersReducedMotion() ? 0 : EXIT_MS);
-    return () => clearTimeout(timer);
+    const root = document.documentElement;
+    root.classList.add("site-reveal");
+    const removeLoader = setTimeout(() => setGone(true), reducedMotion() ? 0 : EXIT_MS);
+    const removeClass = setTimeout(() => root.classList.remove("site-reveal"), REVEAL_MS);
+    return () => {
+      clearTimeout(removeLoader);
+      clearTimeout(removeClass);
+    };
   }, [leaving]);
 
   // Lock page scroll while the loading screen is visible.
@@ -82,49 +79,21 @@ function Preloader() {
 
   if (gone) return null;
 
-  const logo = (
-    <span className="preloader-logo" style={{ "--logo-src": `url("${logoMark}")` }}>
-      <img src={logoMark} alt="" width="70" height="70" />
-      <span className="preloader-sheen" aria-hidden="true" />
-    </span>
-  );
-
   return (
-    <div
-      className={`preloader preloader--${variant}${leaving ? " is-leaving" : ""}`}
-      role="status"
-      aria-label="Loading"
-    >
-      {variant === "ring" ? (
-        <div className="preloader-ring">
-          <svg viewBox="0 0 150 150" aria-hidden="true">
-            <circle className="ring-track" cx="75" cy="75" r="70" />
-            <circle
-              className="ring-fill"
-              cx="75"
-              cy="75"
-              r="70"
-              strokeDasharray={RING_LENGTH}
-              strokeDashoffset={RING_LENGTH * (1 - percent / 100)}
-            />
-          </svg>
-          {logo}
-        </div>
-      ) : (
-        logo
-      )}
+    <div className={`preloader${leaving ? " is-leaving" : ""}`} role="status" aria-label="Loading">
+      <div className="preloader-strips" aria-hidden="true">
+        {Array.from({ length: STRIPS }, (_, i) => (
+          <span key={i} style={{ "--i": i }} />
+        ))}
+      </div>
 
-      <h2 className="preloader-title">
-        UNIQUE TECH
-        <span>GENERAL MAINTENANCE LLC</span>
-      </h2>
-
-      {variant !== "ring" && (
-        <div className="preloader-bar">
-          <span style={{ width: `${percent}%` }} />
+      <div className="preloader-content">
+        <div className="preloader-mark" style={{ "--fill": `${progress}%` }}>
+          <img className="preloader-mark-base" src={logoLarge} alt="" />
+          <img className="preloader-mark-fill" src={logoLarge} alt="" />
         </div>
-      )}
-      <p className="preloader-percent">{percent}%</p>
+        <img className="preloader-wordmark" src={wordmark} alt="Unique Tech General Maintenance LLC" />
+      </div>
     </div>
   );
 }
