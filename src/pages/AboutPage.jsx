@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 import { advantages, commitments } from "../data/about";
-import aboutChairmanLogo from "../assets/images/about-chairman-logo.webp";
+import chairmanPhoto from "../assets/images/chairman.webp";
 import aboutIntroCity from "../assets/images/about-intro-city.webp";
 import aboutIntroHvac from "../assets/images/about-intro-hvac.webp";
 import aboutIntroTeam from "../assets/images/about-intro-team.webp";
@@ -62,7 +62,13 @@ function AboutPage() {
           <div className="ut-chairman-blue-back" aria-hidden="true" />
           <div className="ut-chairman-white-card">
             <span className="ut-chairman-quote" aria-hidden="true">”</span>
-            <img src={aboutChairmanLogo} alt="Unique Tech General Maintenance LLC logo" />
+            <img
+              src={chairmanPhoto}
+              alt="Mohammed Azharul Islam, Founder, Chairman and General Manager of Unique Tech General Maintenance LLC"
+              width="1000"
+              height="800"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
