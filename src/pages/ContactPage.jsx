@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 
 import Navbar from "../components/Navbar";
@@ -6,6 +7,9 @@ import SocialLinks from "../components/SocialLinks";
 import Icon from "../components/Icons";
 
 import { company } from "../data/company";
+
+import isoCertificate from "../assets/images/iso-9001-certificate.webp";
+import isoBadge from "../assets/images/iso-accreditation-badge.webp";
 
 import "./ContactPage.css";
 
@@ -40,6 +44,15 @@ const locations = ["Abu Dhabi", "Dubai", "Sharjah", "Other UAE location"];
 const services = ["MEP Works", "Maintenance", "Interior Works", "Landscaping", "Material Supply"];
 
 function ContactPage() {
+  const [certOpen, setCertOpen] = useState(false);
+
+  useEffect(() => {
+    if (!certOpen) return undefined;
+    const onKey = (event) => event.key === "Escape" && setCertOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [certOpen]);
+
   function handleSubmit(event) {
     event.preventDefault();
     const fields = new FormData(event.currentTarget);
@@ -105,6 +118,34 @@ function ContactPage() {
           </div>
         </section>
 
+        <section className="contact-cert-section">
+          <div className="wrap">
+            <header className="contact-cert-intro">
+              <span className="eyebrow">CERTIFIED &amp; ACCREDITED</span>
+              <h2>Certified for Quality.<br />Trusted for Service.</h2>
+            </header>
+            <article className="contact-cert-panel" tabIndex={0} aria-label="ISO 9001:2015 certification">
+              <button
+                type="button"
+                className="contact-cert-frame"
+                onClick={() => setCertOpen(true)}
+                aria-label="View ISO 9001:2015 certificate full size"
+              >
+                <img src={isoCertificate} alt="ISO 9001:2015 Certificate of Registration" loading="lazy" />
+              </button>
+              <div className="contact-cert-copy">
+                <div className="contact-cert-badge">
+                  <img src={isoBadge} alt="UAF accredited - ISO 9001:2015 certified company" loading="lazy" />
+                </div>
+                <p>Our quality management system for building maintenance services is independently assessed and accredited, so you can contact us with confidence.</p>
+                <a className="contact-cert-link" href="https://www.gcert.co" target="_blank" rel="noreferrer">
+                  View &amp; Verify at www.gcert.co
+                </a>
+              </div>
+            </article>
+          </div>
+        </section>
+
         <section className="contact-enquiry-section">
           <div className="wrap contact-enquiry-grid">
             <form className="reference-contact-form" onSubmit={handleSubmit}>
@@ -154,6 +195,13 @@ function ContactPage() {
           </div>
         </section>
       </main>
+
+      {certOpen && (
+        <div className="cert-lightbox" role="dialog" aria-modal="true" aria-label="ISO 9001:2015 certificate" onClick={() => setCertOpen(false)}>
+          <button type="button" className="cert-lightbox-close" aria-label="Close certificate">&times;</button>
+          <img src={isoCertificate} alt="ISO 9001:2015 Certificate of Registration" />
+        </div>
+      )}
 
       <Footer />
     </>
