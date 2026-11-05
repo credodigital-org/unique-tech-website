@@ -19,7 +19,7 @@ const contactCards = [
     title: "Our Location",
     icon: "pin",
     lines: [
-      { text: "Unique Tech General Maintenance LLC - S.P.C", href: company.mapUrl },
+      { text: "Unique Tech General Maintenance LLC", href: company.mapUrl },
       { text: "P.O. Box: 107275", href: company.mapUrl },
       { text: "Ras al Qit'ah Al Bateen, 28 Abu Dhabi", href: company.mapUrl },
     ],
